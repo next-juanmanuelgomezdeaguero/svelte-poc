@@ -39,7 +39,7 @@
 {#if promise}
   {#await promise}
     <p>...waiting</p>
-     error}
+   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}
 {:else}
