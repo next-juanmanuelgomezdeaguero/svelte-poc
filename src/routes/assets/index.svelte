@@ -1,15 +1,16 @@
 <script>
   import { onMount } from "svelte";
-  import { get } from "../components/api.js";
+  import { get } from "../../components/api.js";
 
   let promise;
+  let assets = [];
 
   onMount(async () => {
     promise = _getAssets();
   });
 
   const _getAssets = async () => {
-    let assets = await get("assets");
+    assets = await get("assets");
 
     return assets;
   };
@@ -23,8 +24,10 @@
 
 {#await promise}
   <p>Loading...</p>
-{:then assets}
-  <p>{assets}</p>
+{:then}
+  {#each assets as asset}
+    <p>{asset.name}</p>
+  {/each}
 {:catch error}
   <p style="color: red">{error}</p>
 {/await}
